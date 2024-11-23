@@ -1,0 +1,24 @@
+﻿<Page x:Class="EmployeeManagement.View.ListOfEmployees"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EmployeeManagement.View" xmlns:viewmodel="clr-namespace:EmployeeManagement.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainVM}"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1280"
+      Title="ListOfEmployees">
+
+    <Grid>
+        <ListView ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" DisplayMemberPath="Title" Background="MistyRose" BorderBrush="#FFF1C9D8">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Name}">Имя</GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Surname}">Фамилия</GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Birthday}">Дата рождения</GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Name}">Количество лет</GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=Position}">Должность</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

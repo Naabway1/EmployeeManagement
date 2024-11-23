@@ -8,9 +8,9 @@ namespace EmployeeManagement.Model
 {
     internal class Employee
     {
-        public string Name;
-        public string Surname;
-        public DateTime Birthday;
-        public string Position;
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public DateTime Birthday { get; set; }
+        public string Position { get; set; }
     }
 }

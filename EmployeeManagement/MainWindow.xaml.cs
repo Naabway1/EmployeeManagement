@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EmployeeManagement.ViewModel;
+using EmployeeManagement.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,26 @@ namespace EmployeeManagement
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = MainVM.Instance;
+        }
+
+
+        //Добавил, чтобы потестить как это работает, но получилось настолько неплохо, что я готов это оставить, аххаха
+        private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            LoadingBoarder.Visibility = Visibility.Visible;
+            LoadingProgressBar.Visibility = Visibility.Visible;
+        }
+
+        private async void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            for (int i = 0; i <= 100; i += 10)
+            {
+                LoadingProgressBar.Value = i;
+                await Task.Delay(5);
+            }
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            LoadingBoarder.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EmployeeManagement"
+        xmlns:VM="clr-namespace:EmployeeManagement.ViewModel" d:DataContext="{d:DesignInstance Type=VM:MainVM}"
         mc:Ignorable="d"
         Background="Transparent"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="{Binding Title}" Height="900" Width="1600">
     <Grid Background="#ffe4e1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
@@ -14,10 +14,14 @@
         </Grid.ColumnDefinitions>
         <Border Background="#f1c9d8" Grid.Column="0">
             <StackPanel VerticalAlignment="Center">
-                <Button Content="Главная страница" Margin="10, 5" FontSize="25"/>
-                <Button Content="Список сотрудников" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoGreetingsCommand}" Content="Главная страница" Height="60" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoLOECommand}" Content="Список сотрудников" Height="60" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoAddPageCommand}" Content="Добавить" Height="60" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoEditPageCommand}" IsEnabled="{Binding SelectedEmployee, Converter={StaticResource NullToBoolConverter}}" Content="Редактировать" Height="60" Margin="10, 5" FontSize="25"/>
             </StackPanel>
         </Border>
-        <Frame x:Name="MainFrame" Grid.Column="1"/>
+        <Frame Source="{Binding CurrentPage}" Grid.Column="1" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Navigated="Frame_Navigated"/>
+        <Border Grid.Column="1" Name="LoadingBoarder" Visibility="Collapsed" Background="#ffe4e1"/>
+        <ProgressBar Grid.Column="1" Name="LoadingProgressBar" Height="30" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Minimum="0" Maximum="100" Value="0"/>
     </Grid>
 </Window>
