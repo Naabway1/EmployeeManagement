@@ -3,12 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:EmployeeManagement.View"
+      xmlns:local="clr-namespace:EmployeeManagement.View" xmlns:VM="clr-namespace:EmployeeManagement.ViewModel" d:DataContext="{d:DesignInstance Type=VM:MainVM}"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1280"
       Title="AddPage">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBox Text="{Binding NewEmployee.Name, Mode=TwoWay}" Height="50" Width="400" Margin="15"/>
+            <TextBox Text="{Binding NewEmployee.Surname, Mode=TwoWay}" Height="50" Width="400" Margin="15"/>
+            <DatePicker SelectedDate="{Binding NewEmployee.Birthday, Mode=TwoWay}" IsTodayHighlighted="True" Height="25" Width="400" Margin="15"/>
+            <TextBox Text="{Binding NewEmployee.Position, Mode=TwoWay}" Height="50" Width="400" Margin="15"/>
+            <Button Command="{Binding AddCommand}" Height="50" Width="200" Margin="15" Content="Сохранить" FontSize="30"/>
+        </StackPanel>
     </Grid>
 </Page>

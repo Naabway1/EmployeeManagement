@@ -14,7 +14,6 @@ public class RelayCommand : ICommand
 
     public bool CanExecute(object parameter)
     {
-        Console.WriteLine($"CanExecute called. Result: {_canExecute?.Invoke(parameter) ?? true}");
         return _canExecute?.Invoke(parameter) ?? true;
     }
 

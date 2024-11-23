@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using EmployeeManagement.Core;
 using EmployeeManagement.Model;
 using EmployeeManagement.View;
@@ -96,6 +99,7 @@ namespace EmployeeManagement.ViewModel
         public RelayCommand GoEditPageCommand { get; }
         public RelayCommand GoLOECommand { get; } //go list of employees command
         public RelayCommand GoAddPageCommand {  get; }
+        public RelayCommand AddCommand { get; }
 
         private Employee _selectedEmployee;
         public Employee SelectedEmployee
@@ -111,6 +115,22 @@ namespace EmployeeManagement.ViewModel
             }
         }
 
+        private readonly Uri _greetingsPage = new Uri("View/GreetingsPage.xaml", UriKind.Relative);
+        private readonly Uri _loePage = new Uri("View/ListOfEmployees.xaml", UriKind.Relative);
+        private readonly Uri _editPage = new Uri("View/EditPage.xaml", UriKind.Relative);
+        private readonly Uri _addPage = new Uri("View/AddPage.xaml", UriKind.Relative);
+
+        private Employee _newEmployee = new Employee();
+        public Employee NewEmployee
+        {
+            get => _newEmployee;
+            set
+            {
+                _newEmployee = value;
+                OnPropertyChanged(nameof(NewEmployee));
+            }
+        }
+
         private MainVM() 
         {
             Employees = new ObservableCollection<Employee>
@@ -120,34 +140,24 @@ namespace EmployeeManagement.ViewModel
                 new Employee {Name = "Бляяяяяя", Surname = "Как же я", Birthday = new DateTime(2005, 12, 19), Position = "заебался уже...."}
             };
 
-            var greetingsPage = new Uri("View/GreetingsPage.xaml", UriKind.Relative);
-            var loePage = new Uri("View/ListOfEmployees.xaml", UriKind.Relative);
-            var editPage = new Uri("View/EditPage.xaml", UriKind.Relative);
-            var addPage = new Uri("View/AddPage.xaml", UriKind.Relative);
+            GoGreetingsCommand = new RelayCommand(_ => CurrentPage = _greetingsPage, null);
+            GoEditPageCommand = new RelayCommand(_ => CurrentPage = _editPage);
+            GoLOECommand = new RelayCommand(_ => CurrentPage = _loePage, null);
+            GoAddPageCommand = new RelayCommand(_ => CurrentPage = _addPage, null);
+            AddCommand = new RelayCommand(_ => Add());
 
-            GoGreetingsCommand = new RelayCommand(_ => CurrentPage = greetingsPage, null);
-            GoEditPageCommand = new RelayCommand(_ => CurrentPage = editPage);
-            GoLOECommand = new RelayCommand(_ => CurrentPage = loePage, null);
-            GoAddPageCommand = new RelayCommand(_ => CurrentPage = addPage, null);
-
-            GoEditPageCommand.CanExecuteChanged += (s, e) =>
-            {
-                Console.WriteLine("CanExecuteChanged triggered");
-            };
-
-            CurrentPage = greetingsPage;
+            CurrentPage = _greetingsPage;
         }
 
-        public bool NullToBoolConverter(object employee)
+        private void Add()
         {
-            if (employee == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            Debug.WriteLine("AddEmployee вызван");
+            Employees.Add(NewEmployee);
+            Debug.WriteLine("Сотрудник добавлен");
+            NewEmployee = new Employee();
+            NewEmployee.PropertyChanged += (s, e) => Debug.WriteLine($"Property {e.PropertyName} changed");
+            CurrentPage = _loePage;
+            Debug.WriteLine("Навигация выполнена");
         }
     }
 }
