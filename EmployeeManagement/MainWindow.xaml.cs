@@ -41,7 +41,7 @@ namespace EmployeeManagement
             for (int i = 0; i <= 100; i += 10)
             {
                 LoadingProgressBar.Value = i;
-                await Task.Delay(5);
+                await Task.Delay(50);
             }
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             LoadingBoarder.Visibility = Visibility.Collapsed;

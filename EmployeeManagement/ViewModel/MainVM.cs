@@ -127,7 +127,6 @@ namespace EmployeeManagement.ViewModel
             set
             {
                 _newEmployee = value;
-                OnPropertyChanged(nameof(NewEmployee));
             }
         }
 
@@ -155,7 +154,6 @@ namespace EmployeeManagement.ViewModel
             Employees.Add(NewEmployee);
             Debug.WriteLine("Сотрудник добавлен");
             NewEmployee = new Employee();
-            NewEmployee.PropertyChanged += (s, e) => Debug.WriteLine($"Property {e.PropertyName} changed");
             CurrentPage = _loePage;
             Debug.WriteLine("Навигация выполнена");
         }

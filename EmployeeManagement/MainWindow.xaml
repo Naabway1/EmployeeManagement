@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:VM="clr-namespace:EmployeeManagement.ViewModel" d:DataContext="{d:DesignInstance Type=VM:MainVM}"
         mc:Ignorable="d"
         Background="Transparent"
@@ -15,13 +16,13 @@
         <Border Background="#f1c9d8" Grid.Column="0">
             <StackPanel VerticalAlignment="Center">
                 <Button Command="{Binding GoGreetingsCommand}" Content="Главная страница" Height="60" Margin="10, 5" FontSize="25"/>
-                <Button Command="{Binding GoLOECommand}" Content="Список сотрудников" Height="60" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoLOECommand}" Content="Список сотрудников" Height="60" Margin="10, 5" FontSize="22"/>
                 <Button Command="{Binding GoAddPageCommand}" Content="Добавить" Height="60" Margin="10, 5" FontSize="25"/>
-                <Button Command="{Binding GoEditPageCommand}" IsEnabled="{Binding SelectedEmployee, Converter={StaticResource NullToBoolConverter}}" Content="Редактировать" Height="60" Margin="10, 5" FontSize="25"/>
+                <Button Command="{Binding GoEditPageCommand}" Content="Редактировать" Height="60" Margin="10, 5" FontSize="25"/>
             </StackPanel>
         </Border>
         <Frame Source="{Binding CurrentPage}" Grid.Column="1" NavigationUIVisibility="Hidden" Navigating="Frame_Navigating" Navigated="Frame_Navigated"/>
         <Border Grid.Column="1" Name="LoadingBoarder" Visibility="Collapsed" Background="#ffe4e1"/>
-        <ProgressBar Grid.Column="1" Name="LoadingProgressBar" Height="30" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Minimum="0" Maximum="100" Value="0"/>
+        <ProgressBar Grid.Column="1" Name="LoadingProgressBar" Style="{StaticResource ProgressBarDesign}" Height="30" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Minimum="0" Maximum="100" Value="0"/>
     </Grid>
 </Window>
